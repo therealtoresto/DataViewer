@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { User, findOne } from '../models/user.js';
 import { create } from '../models/session.js';
 
-const signinRouter = Router();
+const registerRouter = Router();
 
 // Register user route
 registerRouter.post('/register', async (req, res) => {
