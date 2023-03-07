@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { createHash } from '../util/hash.js';
 
-const { Schema, ObjectId, model } = mongoose;
+const { Schema, ObjectId, model, updateOne } = mongoose;
 
 const userSchema = new Schema({
   id: {
@@ -24,6 +24,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
     default: 'user'
+  },
+  access: {
+    type: [Number],
+    required: true,
+    default: []
   }
 });
 
@@ -68,8 +73,25 @@ const findById = async (id) => {
 }
 
 /**
+ * @param {string} userId
+ * @param {[number]} ids
+ * @returns {}
+ */
+const setAccess = async (userId, ids) => {
+  const user = await findById(userId);
+  if (!user) return 'User is not found';
+  const access = [];
+  for (let id of ids) {
+    if (access.includes(id)) continue;
+    access.push(id);
+    access.sort();
+  }
+  await user.updateOne({ access });
+}
+
+/**
  * @typedef {Schema} User
  */
 const User = model('User', userSchema);
 
-export { User, create, findAll, findById, findOne };
+export { User, create, findAll, findById, findOne, setAccess };

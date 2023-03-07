@@ -3,7 +3,6 @@ import { Session } from '../models/session.js';
 import { readFileSync } from "fs";
 
 const config = JSON.parse(readFileSync("./config.json"));
-console.log(config);
 
 export const authenticate = async (req, res, next) => {
   const token = req.cookies.token;
