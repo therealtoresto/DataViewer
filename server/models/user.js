@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { createHash } from '../util/hash.js';
 
 const { Schema, ObjectId, model } = mongoose;
 
@@ -21,8 +22,15 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    required: true
+    required: true,
+    default: 'user'
   }
+});
+
+userSchema.pre('save', function(next) {
+  const user = this;
+  
+  createHash(user, next);
 });
 
 /**
@@ -44,6 +52,14 @@ const findAll = async () => {
 }
 
 /**
+ * @param {null}
+ * @returns {User[]}
+ */
+const findOne = async (data) => {
+  return await User.findOne(data);
+}
+
+/**
  * @param {number} id
  * @returns {User}
  */
@@ -56,4 +72,4 @@ const findById = async (id) => {
  */
 const User = model('User', userSchema);
 
-export { User, create, findAll, findById };
+export { User, create, findAll, findById, findOne };

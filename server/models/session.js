@@ -10,6 +10,16 @@ const sessionSchema = new Schema({
   },
 });
 
+/**
+ * 
+ * @param {Session} data
+ * @returns {Session}
+ */
+const create = async (data) => {
+  const session = new Session(data);
+  return await session.save();
+}
+
 const Session = model('Session', sessionSchema);
 
-export default Session;
+export { Session, create };
