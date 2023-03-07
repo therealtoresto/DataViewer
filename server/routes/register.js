@@ -4,8 +4,8 @@ import { create } from '../models/session.js';
 
 const signinRouter = Router();
 
-// Login user route
-signinRouter.post('/signin', async (req, res) => {
+// Register user route
+registerRouter.post('/register', async (req, res) => {
   const { email, password } = req.body;
   
   // Find user from db
@@ -31,4 +31,4 @@ signinRouter.post('/signin', async (req, res) => {
   }
 });
 
-export { signinRouter };
+export { registerRouter };

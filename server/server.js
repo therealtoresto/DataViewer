@@ -5,7 +5,7 @@ import { connectToDb } from './db/mongodb.js';
 import { readFileSync } from "fs";
 import { userRouter } from './routes/user.js'
 import { loginRouter } from './routes/login.js';
-import { signinRouter } from './routes/signin.js';
+import { registerRouter } from './routes/register.js';
 
 const config = JSON.parse(readFileSync("./config.json"));
 
@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 });
 app.use(loginRouter);
 app.use(userRouter);
-app.use(signinRouter);
+app.use(registerRouter);
 
 app.listen(port || 8001, () => {
   console.log(`Server is started on ${port || 8001} 🎛️`)

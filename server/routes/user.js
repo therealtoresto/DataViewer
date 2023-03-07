@@ -16,9 +16,9 @@ userRouter.get('/users', authenticate, async (req, res) => {
 });
 
 // Route for obtaining user data
-userRouter.get('/users/:userId', authenticate, async (req, res) => {
+userRouter.get('/users/:id', authenticate, async (req, res) => {
   const user = await findById(req.userId);
-  const id = req.params.userId;
+  const id = req.params.id;
   const accessArray = user.access;
   if (user.role !== 'admin' && (!accessArray.includes(id))) {
     return res.status(403).json({ message: 'You have no access' });
